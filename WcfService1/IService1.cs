@@ -19,6 +19,9 @@ namespace WcfService1
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
+        [OperationContract]
+        string Authentication(string loginNamecrypt, string passwordcrypt);
+
         // TODO: Add your service operations here
     }
 
