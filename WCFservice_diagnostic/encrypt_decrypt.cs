@@ -61,23 +61,31 @@ namespace WcfService1
         }
 
 
-        public string Authentication(string encryptLogin, string encryptPassword)
+        public bool Authentication(string encryptLogin, string encryptPassword)
         {
-
-            string login = decrypt(encryptLogin);
-            string password = decrypt(encryptPassword);
-
-            Connection ConAuthentication = new Connection();
-            DataSet veryfauthentication = ConAuthentication.sqldata("SELECT [Id], [login], [password], [date] FROM [dbo].[WCFaccount] where login = '"+login+"' and password  = '"+password+"' and [date] > GETDATE()");
-
-            if (veryfauthentication.Tables[0].Rows.Count > 0)
+            try
             {
-                return "Weclome";
+                string login = decrypt(encryptLogin);
+                string password = decrypt(encryptPassword);
+
+                Connection ConAuthentication = new Connection();
+                DataSet veryfauthentication = ConAuthentication.sqldata("SELECT [Id], [login], [password], [date] FROM [dbo].[WCFaccount] where login = '" + login + "' and password  = '" + password + "' and [date] > GETDATE()");
+                if (veryfauthentication.Tables[0].Rows.Count > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
-            else
+            catch
             {
-                return "Spierdalaj";
+                return false;
             }
+
+       
             
          
 

@@ -10,7 +10,7 @@ namespace WcfService1
     public class Connection
     {
 
-        private string sqlconncetionstring = WcfService1.Properties.Settings.Default.conwcfbase;
+        private string sqlconncetionstring = WCFservice_diagnostic.Properties.Settings.Default.WCFConBase;
 
         public DataSet sqldata(string cmd)
         {

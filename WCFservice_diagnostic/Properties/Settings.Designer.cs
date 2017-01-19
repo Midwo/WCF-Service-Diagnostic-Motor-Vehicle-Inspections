@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WcfService1.Properties {
+namespace WCFservice_diagnostic.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -28,9 +28,9 @@ namespace WcfService1.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\wcfBase.mdf;I" +
             "ntegrated Security=True;Connect Timeout=30")]
-        public string conwcfbase {
+        public string WCFConBase {
             get {
-                return ((string)(this["conwcfbase"]));
+                return ((string)(this["WCFConBase"]));
             }
         }
     }
