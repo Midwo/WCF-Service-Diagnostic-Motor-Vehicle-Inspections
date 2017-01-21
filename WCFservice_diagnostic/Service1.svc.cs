@@ -50,9 +50,9 @@ namespace WCFservice_diagnostic
             try
             {
        
-                DataSet response = con.sqldata("Select nick, datelogin From LoginTableHistory where nick ='" + name + "' and datelogin = '"+ DateTime.Now.ToString("M-d-yyyy") + "'");
-                string responsedataset = response.Tables[0].Rows[0][0].ToString();
-                return DateTime.Now.ToString("hh:mm:ss");
+                DataSet response = con.sqldata("Select nick, datelogin From LoginTableHistory where nick ='" + name + "' and datelogin between '"+ DateTime.Now.ToString("M-d-yyyy") +" 00:00:00' and '"+ DateTime.Now.ToString("M-d-yyyy") + " 23:59:59'");
+                string responsedataset = response.Tables[0].Rows[0][1].ToString();
+                return responsedataset.ToString();
 
             }
             catch
