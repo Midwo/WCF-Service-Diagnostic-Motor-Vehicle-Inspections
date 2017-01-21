@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -34,6 +35,32 @@ namespace WCFservice_diagnostic
         {
             Encrypt_decrypt authentication = new Encrypt_decrypt();
             return authentication.Authentication(loginNamecrypt, passwordcrypt);
+        }
+
+        public CarConditionEnum hmm(Car all)
+        {
+
+            return all.condition;
+
+        }
+
+      public  string getstartwork(string name)
+        {
+            Connection con = new Connection();
+            try
+            {
+       
+                DataSet response = con.sqldata("Select nick, datelogin From LoginTableHistory where nick ='" + name + "' and datelogin = '"+ DateTime.Now.ToString("M-d-yyyy") + "'");
+                string responsedataset = response.Tables[0].Rows[0][0].ToString();
+                return DateTime.Now.ToString("hh:mm:ss");
+
+            }
+            catch
+            {
+                DataSet response = con.sqldata("INSERT INTO LoginTableHistory(nick) Values ('" + name+"')");
+                return DateTime.Now.ToString("HH:mm:ss");
+            }
+            
         }
     }
 }

@@ -21,7 +21,13 @@ namespace WCFservice_diagnostic
 
         [OperationContract]
         bool Authentication(string loginNamecrypt, string passwordcrypt);
-        // TODO: Add your service operations here
+
+        [OperationContract]
+        CarConditionEnum hmm(Car all);
+
+
+        [OperationContract]
+        string getstartwork(string name);
     }
 
 
@@ -45,5 +51,27 @@ namespace WCFservice_diagnostic
             get { return stringValue; }
             set { stringValue = value; }
         }
+    }
+    [DataContract]
+    public class Car
+    {
+        [DataMember]
+        public string model;
+        [DataMember]
+        public CarConditionEnum condition;
+    }
+    [DataContract(Name = "CarCondition")]
+    public enum CarConditionEnum
+    {
+        [EnumMember]
+        New,
+        [EnumMember]
+        Used,
+        [EnumMember]
+        Rental,
+        [EnumMember]
+        Broken,
+        [EnumMember]
+        Stolen
     }
 }
