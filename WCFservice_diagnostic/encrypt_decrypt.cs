@@ -84,12 +84,6 @@ namespace WcfService1
             {
                 return false;
             }
-
-       
-            
-         
-
-
         }  
     }
 }

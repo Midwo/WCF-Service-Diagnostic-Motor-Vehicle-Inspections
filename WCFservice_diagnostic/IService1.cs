@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -28,6 +29,10 @@ namespace WCFservice_diagnostic
 
         [OperationContract]
         string getstartwork(string name);
+
+
+        [OperationContract]
+        DataSet Business_employe(string login);
     }
 
 

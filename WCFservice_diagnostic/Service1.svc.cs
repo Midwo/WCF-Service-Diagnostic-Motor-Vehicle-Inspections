@@ -70,5 +70,21 @@ namespace WCFservice_diagnostic
             }
             
         }
+
+      public DataSet Business_employe(string login)
+        {
+            DataSet ds = new DataSet();
+            Connection con = new Connection();
+            try
+            {
+                Encrypt_decrypt authentication = new Encrypt_decrypt();
+                ds = con.sqldata("Select [name_business], [address_business] FROM [dbo].[WCFaccount] Where login ='"+authentication.decrypt(login)+"'");
+                return ds;
+            }
+            catch
+            {
+                return ds;
+            }
+        }
     }
 }
