@@ -33,6 +33,17 @@ namespace WCFservice_diagnostic
 
         [OperationContract]
         DataSet Business_employe(string login);
+
+
+        [OperationContract]
+        DataSet ShowReviewsTable(string VIN);
+
+
+        [OperationContract]
+        DataSet ShowRepairTable(string VIN);
+
+        [OperationContract]
+        DataSet ShowOrderTable(string BusinessName);
     }
 
 

@@ -86,5 +86,62 @@ namespace WCFservice_diagnostic
                 return ds;
             }
         }
+
+
+
+
+        public DataSet ShowReviewsTable(string VIN)
+        {
+            DataSet ds = new DataSet();
+            Connection con = new Connection();
+
+            try
+            {
+                ds = con.sqldata("exec [dbo].[ShowReviews] "+VIN+"");
+                return ds;
+            }
+            catch
+            {
+                return ds;
+            }
+
+        }
+
+
+
+        public DataSet ShowRepairTable(string VIN)
+        {
+            DataSet ds = new DataSet();
+            Connection con = new Connection();
+            try
+            {
+                ds = con.sqldata("exec [dbo].[ShowRepair] " + VIN + "");
+                return ds;
+            }
+            catch
+            {
+                return ds;
+            }
+
+        }
+
+
+        public DataSet ShowOrderTable(string BusinessName)
+        {
+            DataSet ds = new DataSet();
+            Connection con = new Connection();
+            try
+            {
+                ds = con.sqldata("SELECT[WhoOrderBusiness] as [Order - Business name], [WhereOrder] as [Order - Business Address], [WhoOrderEmployee] as [Order - Employee], [DateOrder] as [Date order], [WhenDateNecessary] as [Date necessary], [Status], [Items], [Send], [DateSend] as [Date send], [Cost] FROM[dbo].[Order] WHERE[WhoOrderBusiness] = '"+BusinessName+"' ORDER BY ID DESC");
+                return ds;
+            }
+            catch
+            {
+
+                return ds;
+
+            }
+
+        }
     }
 }
