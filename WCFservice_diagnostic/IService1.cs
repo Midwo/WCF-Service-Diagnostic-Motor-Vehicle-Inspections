@@ -50,6 +50,9 @@ namespace WCFservice_diagnostic
 
         [OperationContract]
         DataSet ShowEditReview(string VIN, string BusinessName);
+
+        [OperationContract]
+        string SaveEditReview(Review Save);
     }
 
 
@@ -74,6 +77,111 @@ namespace WCFservice_diagnostic
             set { stringValue = value; }
         }
     }
+
+    [DataContract]
+    public class Review
+    {
+        string id;
+        string whoReviews;
+        string whereReviews;
+        DateTime dateReviews;
+        string vin;
+        string light;
+        string convergence;
+        string exhaust;
+        string damper;
+        string brakes;
+        string whoReviewEnployee;
+        string colour;
+        string fuel;
+        string mileage;
+
+     [DataMember]
+        public string Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+        [DataMember]
+        public string WhoReviews
+        {
+            get { return whoReviews; }
+            set { whoReviews = value; }
+        }
+        [DataMember]
+        public string WhereReviews
+        {
+            get { return whereReviews; }
+            set { whereReviews = value; }
+        }
+        [DataMember]
+        public DateTime DateReviews
+        {
+            get { return dateReviews; }
+            set { dateReviews = value; }
+        }
+        [DataMember]
+        public string Mileage
+        {
+            get { return mileage; }
+            set { mileage = value; }
+        }
+        [DataMember]
+        public string Colour
+        {
+            get { return colour; }
+            set { colour = value; }
+        }
+        [DataMember]
+        public string Fuel
+        {
+            get { return fuel; }
+            set { fuel = value; }
+        }
+        [DataMember]
+        public string WhoReviewEnployee
+        {
+            get { return whoReviewEnployee; }
+            set { whoReviewEnployee = value; }
+        }
+        [DataMember]
+        public string Brakes
+        {
+            get { return brakes; }
+            set { brakes = value; }
+        }
+        [DataMember]
+        public string Damper
+        {
+            get { return damper; }
+            set { damper = value; }
+        }
+        [DataMember]
+        public string Exhaust
+        {
+            get { return exhaust; }
+            set { exhaust = value; }
+        }
+        [DataMember]
+        public string Convergence
+        {
+            get { return convergence; }
+            set { convergence = value; }
+        }
+        [DataMember]
+        public string Light
+        {
+            get { return light; }
+            set { light = value; }
+        }
+        [DataMember]
+        public string Vin
+        {
+            get { return vin; }
+            set { vin = value; }
+        }
+    }
+
     [DataContract]
     public class Enums
     {

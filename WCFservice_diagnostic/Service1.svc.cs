@@ -43,7 +43,40 @@ namespace WCFservice_diagnostic
         //    return all.condition;
 
         //}
-       public DataSet ShowEditReview(string VIN, string BusinessName)
+
+        public string SaveEditReview(Review Save)
+        {
+            #region procedure
+            // CREATE PROCEDURE[dbo].[SaveEditReview]
+            //  @ID nvarchar(max),
+            //	@Mileage nvarchar(max),
+            //	@Colour nvarchar(max),
+            //	@Fuel nvarchar(max),
+            //	@Brakes nvarchar(max),
+            //	@Damper nvarchar(max),
+            //	@Exhaust nvarchar(max),
+            //	@Convergence nvarchar(max),
+            //	@light nvarchar(max)
+            //AS
+            //    UPDATE[dbo].[Reviews]
+            //        SET[Mileage]=@Mileage,[Colour]=@Colour,[Fuel]=@Fuel,[Brakes]=@Brakes,[]=@Damper,[ExHaust]
+            //        =@Exhaust,[Convergence]=@Convergence,[Light]=@light WHERE ID = @ID
+            //Return 0
+            #endregion
+            try
+            {
+
+                Connection con = new Connection();
+                con.sqlcommand("Exec SaveEditReview " + Save.Id + "," + Save.Mileage + "," + Save.Colour + "," + Save.Fuel + "," + Save.Brakes + "," + Save.Damper + "," + Save.Exhaust + "," + Save.Convergence + "," + Save.Light + "");
+
+                return "Success - changed review car";
+            }
+            catch
+            {
+                return "Failed - don't changed review car";
+            }
+        }
+        public DataSet ShowEditReview(string VIN, string BusinessName)
         {
             DataSet responseds = new DataSet();
             Connection con = new Connection();
