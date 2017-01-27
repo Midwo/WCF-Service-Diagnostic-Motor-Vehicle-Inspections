@@ -24,7 +24,7 @@ namespace WCFservice_diagnostic
         bool Authentication(string loginNamecrypt, string passwordcrypt);
 
         [OperationContract]
-        CarConditionEnum hmm(Car all);
+        Enum fueltypeget(Enums all);
 
 
         [OperationContract]
@@ -44,6 +44,10 @@ namespace WCFservice_diagnostic
 
         [OperationContract]
         DataSet ShowOrderTable(string BusinessName);
+
+        [OperationContract]
+        string NewReview(string WhoReviewsBusinessName, string WhereReviewsBusinessName, string Mileage, string Colour, string WhoReviewEmployee, string Brakes, string Damper, string Exhaust, string Convergence, string light, string Vin, string fuel);
+
     }
 
 
@@ -69,25 +73,21 @@ namespace WCFservice_diagnostic
         }
     }
     [DataContract]
-    public class Car
+    public class Enums
     {
         [DataMember]
-        public string model;
+        public string all;
         [DataMember]
-        public CarConditionEnum condition;
+        public fueltypeenum fueltypeenum;
     }
-    [DataContract(Name = "CarCondition")]
-    public enum CarConditionEnum
+    [DataContract(Name = "fueltypeenum")]
+    public enum fueltypeenum
     {
         [EnumMember]
-        New,
+        PB,
         [EnumMember]
-        Used,
+        LPG,
         [EnumMember]
-        Rental,
-        [EnumMember]
-        Broken,
-        [EnumMember]
-        Stolen
+        Diesel
     }
 }

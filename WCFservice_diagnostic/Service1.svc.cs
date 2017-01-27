@@ -37,14 +37,19 @@ namespace WCFservice_diagnostic
             return authentication.Authentication(loginNamecrypt, passwordcrypt);
         }
 
-        public CarConditionEnum hmm(Car all)
+        //public CarConditionEnum hmm(Car all)
+        //{
+
+        //    return all.condition;
+
+        //}
+
+        public Enum fueltypeget(Enums all)
         {
-
-            return all.condition;
-
+            return all.fueltypeenum;
         }
 
-      public  string getstartwork(string name)
+        public  string getstartwork(string name)
         {
             Connection con = new Connection();
             try
@@ -142,6 +147,12 @@ namespace WCFservice_diagnostic
 
             }
 
+        }
+
+        public string NewReview(string WhoReviewsBusinessName, string WhereReviewsBusinessName, string Mileage, string Colour, string WhoReviewEmployee, string Brakes, string Damper, string Exhaust, string Convergence, string light, string Vin, string fuel)
+        {
+
+            return "";
         }
     }
 }
