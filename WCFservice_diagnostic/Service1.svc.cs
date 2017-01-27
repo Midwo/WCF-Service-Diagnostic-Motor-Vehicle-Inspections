@@ -43,10 +43,37 @@ namespace WCFservice_diagnostic
         //    return all.condition;
 
         //}
-
-        public Enum fueltypeget(Enums all)
+       public DataSet ShowEditReview(string VIN, string BusinessName)
         {
-            return all.fueltypeenum;
+            DataSet responseds = new DataSet();
+            Connection con = new Connection();
+            try
+            {
+                            //                CREATE PROCEDURE[dbo].[ShowEditReview]
+                            //        @VIN nvarchar(max),
+                            //@BusinessName nvarchar(max)
+                            //AS
+                            //    SELECT[ID], [WhoReviews], [WhereReviews], [DateReviews], [Mileage], [Colour], [Fuel],[WhoReviewEmployee], [Brakes], [Damper], [ExHaust], [Convergence], [Light], [VIN] FROM[dbo].[Reviews]
+                            //        WHERE ID = (SELECT MAX(ID) FROM[dbo].[Reviews]
+                            //        WHERE VIN = @VIN) and[WhoReviews] = @BusinessName
+                            //RETURN 0
+
+                responseds = con.sqldata("exec ShowEditReview '" + VIN + "', '" + BusinessName + "' ");
+                return responseds;
+            }
+            catch
+            {
+                return responseds;
+            }
+        }
+    
+
+
+
+
+    public Enum Fueltypeget(Enums all)
+        {
+            return all.Fueltypeenum;
         }
 
         public  string getstartwork(string name)
@@ -149,10 +176,19 @@ namespace WCFservice_diagnostic
 
         }
 
-        public string NewReview(string WhoReviewsBusinessName, string WhereReviewsBusinessName, string Mileage, string Colour, string WhoReviewEmployee, string Brakes, string Damper, string Exhaust, string Convergence, string light, string Vin, string fuel)
+        public bool NewReview(string WhoReviewsBusinessName, string WhereReviewsBusinessName, string Mileage, string Colour, string WhoReviewEmployee, string Brakes, string Damper, string Exhaust, string Convergence, string light, string Vin, string fuel)
         {
-
-            return "";
+            try
+            {
+                Connection con = new Connection();
+                con.sqlcommand("INSERT INTO [dbo].[Reviews] ([VIN],[WhoReviews],[WhereReviews],[Mileage],[Colour], [Fuel],  [WhoReviewEmployee], [Brakes], [Damper],[ExHaust],[Convergence], [Light]) VALUES('" + Vin + "','" + WhoReviewsBusinessName + "','" + WhereReviewsBusinessName + "','" + Mileage + "','" + Colour + "', '" + fuel + "', '" + WhoReviewEmployee + "','" + Brakes + "','" + Damper + "','" + Exhaust + "','" + Convergence + "','" + light + "')");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+           
         }
     }
 }

@@ -24,7 +24,7 @@ namespace WCFservice_diagnostic
         bool Authentication(string loginNamecrypt, string passwordcrypt);
 
         [OperationContract]
-        Enum fueltypeget(Enums all);
+        Enum Fueltypeget(Enums all);
 
 
         [OperationContract]
@@ -46,8 +46,10 @@ namespace WCFservice_diagnostic
         DataSet ShowOrderTable(string BusinessName);
 
         [OperationContract]
-        string NewReview(string WhoReviewsBusinessName, string WhereReviewsBusinessName, string Mileage, string Colour, string WhoReviewEmployee, string Brakes, string Damper, string Exhaust, string Convergence, string light, string Vin, string fuel);
+        bool NewReview(string WhoReviewsBusinessName, string WhereReviewsBusinessName, string Mileage, string Colour, string WhoReviewEmployee, string Brakes, string Damper, string Exhaust, string Convergence, string light, string Vin, string fuel);
 
+        [OperationContract]
+        DataSet ShowEditReview(string VIN, string BusinessName);
     }
 
 
@@ -76,11 +78,11 @@ namespace WCFservice_diagnostic
     public class Enums
     {
         [DataMember]
-        public string all;
+        public string All;
         [DataMember]
-        public fueltypeenum fueltypeenum;
+        public fueltypeenum Fueltypeenum;
     }
-    [DataContract(Name = "fueltypeenum")]
+    [DataContract(Name = "Fueltypeenum")]
     public enum fueltypeenum
     {
         [EnumMember]
