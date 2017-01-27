@@ -10,8 +10,6 @@ using WcfService1;
 
 namespace WCFservice_diagnostic
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
         public string GetData(int value)
@@ -46,28 +44,14 @@ namespace WCFservice_diagnostic
 
         public string SaveEditReview(Review Save)
         {
-            #region procedure
-            // CREATE PROCEDURE[dbo].[SaveEditReview]
-            //  @ID nvarchar(max),
-            //	@Mileage nvarchar(max),
-            //	@Colour nvarchar(max),
-            //	@Fuel nvarchar(max),
-            //	@Brakes nvarchar(max),
-            //	@Damper nvarchar(max),
-            //	@Exhaust nvarchar(max),
-            //	@Convergence nvarchar(max),
-            //	@light nvarchar(max)
-            //AS
-            //    UPDATE[dbo].[Reviews]
-            //        SET[Mileage]=@Mileage,[Colour]=@Colour,[Fuel]=@Fuel,[Brakes]=@Brakes,[]=@Damper,[ExHaust]
-            //        =@Exhaust,[Convergence]=@Convergence,[Light]=@light WHERE ID = @ID
-            //Return 0
-            #endregion
+    
+         
             try
             {
 
                 Connection con = new Connection();
-                con.sqlcommand("Exec SaveEditReview " + Save.Id + "," + Save.Mileage + "," + Save.Colour + "," + Save.Fuel + "," + Save.Brakes + "," + Save.Damper + "," + Save.Exhaust + "," + Save.Convergence + "," + Save.Light + "");
+                con.sqlcommand("UPDATE[dbo].[Reviews] SET[Mileage] = '" + Save.Mileage + "',[Colour] = '" + Save.Colour + "',[Fuel] = '" + Save.Fuel + "',[Brakes] = '" + Save.Brakes + "',[Damper] = '" + Save.Damper + "',[ExHaust] = '" + Save.Exhaust + "',[Convergence] = '" + Save.Convergence + "',[Light] = '" + Save.Light + "' WHERE ID = '" + Save.Id + "'");
+
 
                 return "Success - changed review car";
             }

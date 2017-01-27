@@ -78,6 +78,79 @@ namespace WCFservice_diagnostic
         }
     }
 
+
+
+
+    [DataContract]
+    public class Repair
+    {
+        int id;
+        string vin;
+        string mileage;
+        string repairDescription;
+        string replacedParts;
+        string cost;
+        string whoRepairBusiness;
+        string whereRepairBusiness;
+        string whoRepairEmployee;
+
+        [DataMember]
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        [DataMember]
+        public string VIN
+        {
+            get { return vin;  }
+            set { vin = value; }
+        }
+
+        [DataMember]
+        public string RepairDescrition
+        {
+            get { return repairDescription; }
+            set { repairDescription = value; }
+        }
+        [DataMember]
+        public string ReplacedParts
+        {
+            get { return replacedParts; }
+            set { replacedParts = value; }
+
+        }
+  
+        [DataMember]
+        public string Cost
+        {
+            get { return cost;}
+            set { cost = value; }
+        }
+        [DataMember]
+        public string WhoRepairbusiness
+        {
+            get { return whoRepairBusiness; }
+            set { whoRepairBusiness = value; }
+
+        }
+        [DataMember]
+        public string WhereRepairbusiness
+        {
+            get { return whereRepairBusiness; }
+            set { whereRepairBusiness = value; }
+        }
+        [DataMember]
+        public string WhoRepairEmployee
+        {
+            get { return whoRepairEmployee; }
+            set { whoRepairEmployee = value; }
+        }
+    }
+
+
+
     [DataContract]
     public class Review
     {
