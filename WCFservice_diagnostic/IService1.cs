@@ -13,13 +13,6 @@ namespace WCFservice_diagnostic
     [ServiceContract]
     public interface IService1
     {
-
-        [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-
         [OperationContract]
         bool Authentication(string loginNamecrypt, string passwordcrypt);
 
@@ -53,34 +46,20 @@ namespace WCFservice_diagnostic
 
         [OperationContract]
         string SaveEditReview(Review Save);
+
+        [OperationContract]
+        bool NewRepair(Repair composite);
+
+        [OperationContract]
+        bool EditRepair(Repair composite);
+
+        [OperationContract]
+        DataSet ShowEditRepair(string VIN, string BusinessName);
     }
 
 
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
-    }
-
-
-
-
+    // Use a data contract as illustrated in the sample below to add composite types to service operation
+   
     [DataContract]
     public class Repair
     {
@@ -147,8 +126,13 @@ namespace WCFservice_diagnostic
             get { return whoRepairEmployee; }
             set { whoRepairEmployee = value; }
         }
+        [DataMember]
+        public string Mileage
+        {
+            get { return mileage; }
+            set { mileage = value; }
+        }
     }
-
 
 
     [DataContract]

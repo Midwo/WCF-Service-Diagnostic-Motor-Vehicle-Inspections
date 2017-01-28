@@ -12,23 +12,7 @@ namespace WCFservice_diagnostic
 {
     public class Service1 : IService1
     {
-        public string GetData(int value)
-        {
-            return string.Format("You entered: {0}", value);
-        }
-
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
-        }
+     
         public bool Authentication(string loginNamecrypt, string passwordcrypt)
         {
             Encrypt_decrypt authentication = new Encrypt_decrypt();
@@ -43,9 +27,7 @@ namespace WCFservice_diagnostic
         //}
 
         public string SaveEditReview(Review Save)
-        {
-    
-         
+        {      
             try
             {
 
@@ -60,20 +42,85 @@ namespace WCFservice_diagnostic
                 return "Failed - don't changed review car";
             }
         }
+
+        public bool NewRepair(Repair composite)
+        {
+
+            try
+            {
+                Connection con = new Connection();
+                con.sqlcommand("INSERT INTO [dbo].[Repair] ([VIN],[Mileage],[RepairDescription],[ReplacedParts],[Cost], [WhoRepairBusiness],  [WhereRepairBusiness], [WhoRepairEmployee]) VALUES ('" + composite.VIN + "','" + composite.Mileage + "','" + composite.RepairDescrition + "','" + composite.ReplacedParts + "','" + composite.Cost + "', '" + composite.WhoRepairbusiness + "', '" + composite.WhereRepairbusiness + "','" + composite.WhoRepairEmployee + "')");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
+        public bool EditRepair(Repair composite)
+        {
+            try
+            {
+
+                Connection con = new Connection();
+                con.sqlcommand("UPDATE[dbo].[Repair] SET [Mileage] = '" + composite.Mileage + "',[RepairDescription] = '" + composite.RepairDescrition + "',[ReplacedParts] = '" + composite.ReplacedParts + "',[Cost] = '" + composite.Cost + "' WHERE ID = '" + composite.ID + "'");
+
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+      public  DataSet ShowEditRepair(string VIN, string BusinessName)
+        {
+            DataSet responseds = new DataSet();
+            Connection con = new Connection();
+            try
+            {
+                #region procedure code
+                //                CREATE PROCEDURE[dbo].[ShowEditRepair]
+                //        @VIN nvarchar(max),
+                //@BusinessName nvarchar(max)
+                //AS
+                //    SELECT[Id], [VIN], [Mileage], [RepairDescription], [ReplacedParts], [Cost], [WhoRepairBusiness], [WhereRepairBusiness], [DateRepair], [WhoRepairEmployee]
+
+                //     FROM[dbo].[Repair]
+                //        WHERE ID = (SELECT MAX(ID) FROM[dbo].[Repair]
+                //        WHERE VIN = @VIN) and[WhoRepairBusiness] = @BusinessName
+                //RETURN 0
+                #endregion
+
+                responseds = con.sqldata("exec ShowEditRepair '" + VIN + "', '" + BusinessName + "' ");
+                return responseds;
+            }
+            catch
+            {
+                return responseds;
+            }
+        }
+
+
         public DataSet ShowEditReview(string VIN, string BusinessName)
         {
             DataSet responseds = new DataSet();
             Connection con = new Connection();
             try
             {
-                            //                CREATE PROCEDURE[dbo].[ShowEditReview]
-                            //        @VIN nvarchar(max),
-                            //@BusinessName nvarchar(max)
-                            //AS
-                            //    SELECT[ID], [WhoReviews], [WhereReviews], [DateReviews], [Mileage], [Colour], [Fuel],[WhoReviewEmployee], [Brakes], [Damper], [ExHaust], [Convergence], [Light], [VIN] FROM[dbo].[Reviews]
-                            //        WHERE ID = (SELECT MAX(ID) FROM[dbo].[Reviews]
-                            //        WHERE VIN = @VIN) and[WhoReviews] = @BusinessName
-                            //RETURN 0
+                #region procedure code
+                //                CREATE PROCEDURE[dbo].[ShowEditReview]
+                //        @VIN nvarchar(max),
+                //@BusinessName nvarchar(max)
+                //AS
+                //    SELECT[ID], [WhoReviews], [WhereReviews], [DateReviews], [Mileage], [Colour], [Fuel],[WhoReviewEmployee], [Brakes], [Damper], [ExHaust], [Convergence], [Light], [VIN] FROM[dbo].[Reviews]
+                //        WHERE ID = (SELECT MAX(ID) FROM[dbo].[Reviews]
+                //        WHERE VIN = @VIN) and[WhoReviews] = @BusinessName
+                //RETURN 0
+                #endregion
 
                 responseds = con.sqldata("exec ShowEditReview '" + VIN + "', '" + BusinessName + "' ");
                 return responseds;
