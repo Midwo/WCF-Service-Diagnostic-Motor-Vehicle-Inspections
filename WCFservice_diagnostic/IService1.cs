@@ -55,11 +55,107 @@ namespace WCFservice_diagnostic
 
         [OperationContract]
         DataSet ShowEditRepair(string VIN, string BusinessName);
+
+        [OperationContract]
+        bool NewOrder(Order composite);
+
     }
 
 
     // Use a data contract as illustrated in the sample below to add composite types to service operation
-   
+
+
+    [DataContract]
+    public class Order
+    {
+        int id;
+        string whoOrderBusiness;
+        string whereOrder;
+        string whoOrderEmployee;
+        DateTime whenDateNecessary;
+        string status;
+        string items;
+        string send;
+        DateTime dateSend;
+        float cost;
+
+        [DataMember]
+        public float Cost
+        {
+            get { return cost; }
+            set { cost = value; }
+        }
+
+        [DataMember]
+        public DateTime DateSend
+        {
+            get { return dateSend; }
+            set { dateSend = value; }
+        }
+
+        [DataMember]
+        public string Send
+        {
+            get { return send; }
+            set { send = value; }
+        }
+
+        [DataMember]
+        public string Items
+        {
+            get { return items; }
+            set { items = value; }
+        }
+
+        [DataMember]
+        public DateTime WhenDateNecessary
+        {
+            get { return whenDateNecessary; }
+            set { whenDateNecessary = value; }
+        }
+
+        [DataMember]
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
+
+
+        [DataMember]
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        [DataMember]
+        public string WhoOrderBusiness
+        {
+            get { return whoOrderBusiness; }
+            set { whoOrderBusiness = value; }
+        }
+
+        [DataMember]
+        public string WhereOrder
+        {
+            get { return whereOrder; }
+            set { whereOrder = value; }
+
+        }
+
+        [DataMember]
+        public string WhoOrderEmployee
+        {
+            get { return whoOrderEmployee; }
+            set { whoOrderEmployee = value; }
+        }
+
+    }
+
+
+
+
     [DataContract]
     public class Repair
     {

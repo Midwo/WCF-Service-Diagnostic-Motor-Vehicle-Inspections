@@ -26,6 +26,21 @@ namespace WCFservice_diagnostic
 
         //}
 
+        public bool NewOrder(Order composite)
+        {
+            try
+            {
+                composite.Send = "Processing";
+                Connection con = new Connection();
+                con.sqlcommand("INSERT INTO [dbo].[Order] ([WhoOrderBusiness], [WhereOrder], [WhoOrderEmployee], [WhenDateNecessary], [Status], [Items], [Send], [Cost]) VALUES ('"+composite.WhoOrderBusiness+ "','" + composite.WhereOrder+ "','" + composite.WhoOrderEmployee+ "','" + composite.WhenDateNecessary.ToString("yyyy-MM-dd hh:mm:ss") + "','" + composite.Status+ "','" + composite.Items+ "','" + composite.Send+ "','" + composite.Cost.ToString().Replace(",",".")+ "')");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public string SaveEditReview(Review Save)
         {      
             try
