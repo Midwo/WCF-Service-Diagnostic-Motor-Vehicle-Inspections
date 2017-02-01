@@ -25,6 +25,22 @@ namespace WCFservice_diagnostic
         //    return all.condition;
 
         //}
+
+        public bool BillSave(Bill component)
+        {
+            try
+            {
+                Connection con = new Connection();
+                con.sqlcommand("");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
         public DataSet ClientOptionStatus()
         {
             DataSet responseds = new DataSet();

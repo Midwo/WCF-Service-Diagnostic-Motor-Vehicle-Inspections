@@ -62,6 +62,9 @@ namespace WCFservice_diagnostic
         [OperationContract]
         DataSet ClientOptionStatus();
 
+        [OperationContract]
+        bool BillSave(Bill component);
+
      
         
 
