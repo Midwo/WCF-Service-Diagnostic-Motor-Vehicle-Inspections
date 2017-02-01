@@ -59,10 +59,103 @@ namespace WCFservice_diagnostic
         [OperationContract]
         bool NewOrder(Order composite);
 
+        [OperationContract]
+        DataSet ClientOptionStatus();
+
+     
+        
+
+
     }
 
 
     // Use a data contract as illustrated in the sample below to add composite types to service operation
+
+    [DataContract]
+    public class Bill
+    {
+        DateTime date;
+        string whoBill;
+        float  cost;
+        string employee;
+        string typePayment;
+        float rest;
+        float receivedCash;
+        string whereBusiness;
+        string whoBusiness;
+        string informationClient;
+
+
+        [DataMember]
+        public string InformationClient
+        {
+            get { return informationClient; }
+            set { informationClient = value; }
+        }
+
+        [DataMember]
+        public string WhoBusiness
+        {
+            get { return whoBusiness; }
+            set { whoBusiness = value; }
+        }
+
+        [DataMember]
+        public string WhereBusiness
+        {
+            get { return whereBusiness; }
+            set { whereBusiness = value; }
+        }
+
+        [DataMember]
+        public float ReceivedCast
+        {
+            get { return receivedCash; }
+            set { receivedCash = value; }
+        }
+
+        [DataMember]
+        public float Rest
+        {
+            get { return rest; }
+            set { rest = value; }
+
+        }
+
+        [DataMember]
+        public string TypePayment
+        {
+            get { return typePayment; }
+            set { typePayment = value; }
+        }
+
+        [DataMember]
+        public string Employee
+        {
+            get { return employee; }
+            set { employee = value; }
+        }
+
+        [DataMember]
+        public float Cost
+        {
+            get { return cost; }
+            set { cost = value; }
+        }
+
+        [DataMember]
+        public string WhoBill
+        {
+            get { return whoBill; }
+            set { whoBill = value; }
+        }
+        [DataMember]
+        public DateTime Date
+        {
+            get { return date; }
+            set { date = value; }
+        }
+    }
 
 
     [DataContract]
@@ -152,8 +245,6 @@ namespace WCFservice_diagnostic
         }
 
     }
-
-
 
 
     [DataContract]

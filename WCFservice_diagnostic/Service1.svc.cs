@@ -25,7 +25,20 @@ namespace WCFservice_diagnostic
         //    return all.condition;
 
         //}
-
+        public DataSet ClientOptionStatus()
+        {
+            DataSet responseds = new DataSet();
+            Connection con = new Connection();
+            try
+            {
+                responseds = con.sqldata("exec ShowStatusOption");
+                return responseds;
+            }
+            catch
+            {
+                return responseds;
+            }
+        }
         public bool NewOrder(Order composite)
         {
             try
