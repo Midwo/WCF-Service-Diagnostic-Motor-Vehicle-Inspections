@@ -111,7 +111,7 @@ namespace WCFservice_diagnostic
         }
 
         [DataMember]
-        public float ReceivedCast
+        public float ReceivedCash
         {
             get { return receivedCash; }
             set { receivedCash = value; }

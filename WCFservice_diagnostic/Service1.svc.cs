@@ -31,7 +31,7 @@ namespace WCFservice_diagnostic
             try
             {
                 Connection con = new Connection();
-                con.sqlcommand("");
+                con.sqlcommand("INSERT INTO [dbo].[Bill] ([WhoBill], [Cost], [Employee], [TypePayment], [Rest], [ReceivedCash], [WhereBusiness], [WhoBusiness], [InformationClient]) VALUES ('" + component.WhoBill + "','" + component.Cost.ToString().Replace(',','.') + "','" + component.Employee + "','" + component.TypePayment + "','" + component.Rest.ToString().Replace(',', '.') + "','" + component.ReceivedCash.ToString().Replace(',', '.') + "','" + component.WhereBusiness + "','" + component.WhoBusiness+"','"+component.InformationClient+"')");
                 return true;
             }
             catch
