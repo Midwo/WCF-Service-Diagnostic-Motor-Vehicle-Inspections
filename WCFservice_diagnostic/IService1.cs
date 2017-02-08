@@ -63,16 +63,65 @@ namespace WCFservice_diagnostic
         DataSet ClientOptionStatus();
 
         [OperationContract]
-        bool BillSave(Bill component);
+        int BillSave(Bill component);
 
-     
-        
+        [OperationContract]
+        bool SendOrderEmial(ContractIServiceSendEmailOrder option);
 
+        [OperationContract]
+        string CheckVinClient_NewAccount(CheckVinClient_Account component);
+
+        [OperationContract]
+        bool CheckVinClient_SingIn(CheckVinClient_Account component);
 
     }
 
 
     // Use a data contract as illustrated in the sample below to add composite types to service operation
+
+     [DataContract]
+     public class CheckVinClient_Account
+    {
+        string adressEmail;
+        string name;
+        string surname;
+        string phone;
+        string password;
+
+        [DataMember]
+        public string Password
+        {
+            get { return password; }
+            set { password = value; }
+        }
+
+        [DataMember]
+        public string AdressEmail
+        {
+            get { return adressEmail; }
+            set { adressEmail = value; }
+        } 
+
+        [DataMember]
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        [DataMember]
+        public string Surname
+        {
+            get { return surname; }
+            set { surname = value; }
+        }
+        [DataMember]
+        public string Phone
+        {
+            get { return phone; }
+            set { phone = value; }
+        }
+    }
 
     [DataContract]
     public class Bill
@@ -87,7 +136,14 @@ namespace WCFservice_diagnostic
         string whereBusiness;
         string whoBusiness;
         string informationClient;
+        string what;         
 
+        [DataMember]
+        public string What
+        {
+            get { return what; }
+            set { what = value; }
+        }
 
         [DataMember]
         public string InformationClient

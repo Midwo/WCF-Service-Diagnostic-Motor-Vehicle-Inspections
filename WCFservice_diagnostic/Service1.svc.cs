@@ -1,7 +1,10 @@
-﻿using System;
+﻿using RazorEngine;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
@@ -25,18 +28,183 @@ namespace WCFservice_diagnostic
         //    return all.condition;
 
         //}
+       public  bool CheckVinClient_SingIn(CheckVinClient_Account component)
+        {
+            Encrypt_decrypt hash = new Encrypt_decrypt();
+            string AdressEmail = hash.decrypt(component.AdressEmail);
+            string Password = hash.decrypt(component.Password);
 
-        public bool BillSave(Bill component)
+            Connection con = new Connection();
+
+            DataSet responseds = con.sqldata("Select [AdressEmail] FROM [CheckVINClient_Account] Where [AdressEmail] = '" + AdressEmail + "' and [PasswordNewid] = '"+Password+"'");
+            if (responseds.Tables[0].Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public  string CheckVinClient_NewAccount(CheckVinClient_Account component)
+        {
+            Encrypt_decrypt hash = new Encrypt_decrypt();
+            string AdressEmail = hash.decrypt(component.AdressEmail);
+            string Name = hash.decrypt(component.Name);
+            string Surname = hash.decrypt(component.Surname);
+            string Phone = hash.decrypt(component.Phone);
+
+            Connection con = new Connection();
+
+            DataSet responseds = con.sqldata("Select [AdressEmail] FROM [CheckVINClient_Account] Where [AdressEmail] = '" + AdressEmail + "'");
+
+            if (responseds.Tables[0].Rows.Count > 0)
+            {
+                return "This e-mail already introduced";
+            }
+            else
+            {
+
+                responseds = con.sqldata("Insert INTO[CheckVINClient_Account] ([PasswordNewid],[AdressEmail],[Name],[Surname],[Phone]) VALUES(NEWID(),'" + AdressEmail + "','" + Name + "','" + Surname + "','" + Phone + "') SELECT TOP 1  [AdressEmail], [PasswordNewid] FROM [CheckVINClient_Account] order by Id desc");
+
+                try
+                {
+                    var fromAddress = new MailAddress("infomdticket@gmail.com", "MD VIN check!");
+                    var toAddress = new MailAddress(""+responseds.Tables[0].Rows[0][0].ToString()+"");
+                    const string fromPassword = "";
+                    string subject = "New Account in program MD VIN Check";
+                    #region template email               
+                    string template = @"<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+Welcome to MD VIN Check!
+You created new account: @Model.Date 
+<table>
+  <tr>
+    <th>Login</th>
+    <th>Password</th>
+  </tr>
+  <tr>
+    <td>@Model.Login</td>
+    <td>@Model.Password</td>
+  </tr>
+
+</table>
+Check now number VIN!
+</body>
+</html>";
+                    #endregion
+                    template = Razor.Parse(template, new { Login = AdressEmail, Password = responseds.Tables[0].Rows[0][1].ToString(), Date = DateTime.Now });
+                    string body = template;
+
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                  
+                        
+                    };
+                    using (var message = new MailMessage(fromAddress, toAddress)
+                    {
+                        Subject = subject,
+                        Body = body,
+                        IsBodyHtml = true
+
+                    })
+                    
+                    {
+
+                        smtp.Send(message);
+
+                    }
+                    return "Check your mail. You have their password to program";
+                }
+                catch
+                {
+                    return "Please try again latter";
+                }
+
+
+
+
+            }
+        }
+
+
+        public bool SendOrderEmial(ContractIServiceSendEmailOrder option)
         {
             try
             {
-                Connection con = new Connection();
-                con.sqlcommand("INSERT INTO [dbo].[Bill] ([WhoBill], [Cost], [Employee], [TypePayment], [Rest], [ReceivedCash], [WhereBusiness], [WhoBusiness], [InformationClient]) VALUES ('" + component.WhoBill + "','" + component.Cost.ToString().Replace(',','.') + "','" + component.Employee + "','" + component.TypePayment + "','" + component.Rest.ToString().Replace(',', '.') + "','" + component.ReceivedCash.ToString().Replace(',', '.') + "','" + component.WhereBusiness + "','" + component.WhoBusiness+"','"+component.InformationClient+"')");
+                var fromAddress = new MailAddress("infomdticket@gmail.com", "Orders - job");
+                var toAddress = new MailAddress("michal.dwojak92@gmail.com");
+                const string fromPassword = "";
+                string subject = "New order with: "+option.Who+" - Priority: " + option.Priority +" on date necessary: " + option.DateNecessary.ToShortDateString() + "";
+                string body = "" + option.Body + "";
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+
+                }
                 return true;
             }
             catch
             {
                 return false;
+            }
+       
+        }
+        public int BillSave(Bill component)
+        {
+            try
+            {
+                Connection con = new Connection();
+                con.sqlcommand("INSERT INTO [dbo].[Bill] ([WhoBill], [Cost], [Employee], [TypePayment], [Rest], [ReceivedCash], [WhereBusiness], [WhoBusiness], [InformationClient], [What]) VALUES ('" + component.WhoBill + "','" + component.Cost.ToString().Replace(',','.') + "','" + component.Employee + "','" + component.TypePayment + "','" + component.Rest.ToString().Replace(',', '.') + "','" + component.ReceivedCash.ToString().Replace(',', '.') + "','" + component.WhereBusiness + "','" + component.WhoBusiness+"','"+component.InformationClient+"','"+component.What+"')");
+
+                DataSet ds = new DataSet();            
+                ds = con.sqldata("SELECT TOP 1 [ID] FROM [dbo].[Bill] ORDER BY ID DESC");
+
+                return int.Parse(ds.Tables[0].Rows[0][0].ToString()); 
+                
+            }
+            catch
+            {
+                return 0;
             }
         }
 
