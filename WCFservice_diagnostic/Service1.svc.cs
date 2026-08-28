@@ -71,7 +71,7 @@ namespace WCFservice_diagnostic
                 {
                     var fromAddress = new MailAddress("infomdticket@gmail.com", "MD VIN check!");
                     var toAddress = new MailAddress(""+responseds.Tables[0].Rows[0][0].ToString()+"");
-                    const string fromPassword = "";
+                    const string fromPassword = "YourPassword";
                     string subject = "New Account in program MD VIN Check";
                     #region template email               
                     string template = @"<html>
@@ -159,7 +159,7 @@ Check now number VIN!
             {
                 var fromAddress = new MailAddress("infomdticket@gmail.com", "Orders - job");
                 var toAddress = new MailAddress("michal.dwojak92@gmail.com");
-                const string fromPassword = "";
+                const string fromPassword = "yourPassword";
                 string subject = "New order with: "+option.Who+" - Priority: " + option.Priority +" on date necessary: " + option.DateNecessary.ToShortDateString() + "";
                 string body = "" + option.Body + "";
 
